@@ -36,7 +36,7 @@ export function SimpleTable<TData>({
   showToolbar = true,
   showSelection = true,
   onRowClick,
-  variant = ""
+  variant = "",
 }: SimpleTableProps<TData>) {
   const minWidth = flexTable ? table.getTotalSize() : "auto";
   const tableBodyRef = React.useRef<HTMLTableSectionElement>(null);
@@ -48,7 +48,7 @@ export function SimpleTable<TData>({
       className={cn(
         "flex h-full w-full flex-col overflow-auto ",
         wrapperClassName,
-        variant !== "ghost" && "border border-border rounded-md "
+        variant !== "ghost" && "border border-border rounded-md ",
       )}
     >
       <ReactTable flexTable={flexTable} className={className}>

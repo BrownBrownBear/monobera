@@ -1,5 +1,4 @@
 import "@tanstack/react-table";
-
 import { RowData } from "@tanstack/react-table";
 
 declare module "@tanstack/react-table" {
@@ -14,6 +13,8 @@ declare module "@tanstack/react-table" {
 
   interface ColumnMeta<TData extends RowData, TValue> {
     filter?: ColumnDefTemplate<HeaderContext<TData, TValue>>;
-    tooltip?: string;
+    tooltip?: string | ReactElement | undefined;
+    tooltipClassname?: string;
+    headerClassname?: string;
   }
 }
