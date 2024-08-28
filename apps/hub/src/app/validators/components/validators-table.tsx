@@ -44,6 +44,8 @@ export default function ValidatorsTable() {
   const [typingTimer, setTypingTimer] = useState<NodeJS.Timeout | null>(null);
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
+  const [isValidatorDataLoading, setIsValidatorDataLoading] = useState(false);
+  const [allValidatorPage, setAllValidatorPage] = useState(0);
 
   useEffect(() => {
     return () => {
@@ -77,29 +79,7 @@ export default function ValidatorsTable() {
           </TabsList>
           <TabsContent value="all-validators">
             <div className="flex w-fit items-center justify-between gap-2">
-              <SearchInput
-                value={keyword}
-                onChange={(e: any) => {
-                  setKeyword(e.target.value);
-                  setIsTyping?.(true);
-                  if (typingTimer) clearTimeout(typingTimer);
-                  const newTimer = setTimeout(() => {
-                    setIsTyping(false);
-                  }, 1000);
-                  setTypingTimer(newTimer);
-                }}
-                placeholder="Search..."
-                // onKeyDown={(e: any) => {
-                //   if (e.key === "Enter") {
-                //     setKeyword(search);
-                //     clearTimeout(typingTimer);
-                //     setIsTyping?.(false);
-                //   }
-                // }}
-                id="all-pool-search"
-                className="w-full md:w-[350px]"
-              />
-              {isTyping && (
+              {/* {isTyping && (
                 <div role="status">
                   <svg
                     aria-hidden="true"
@@ -119,7 +99,23 @@ export default function ValidatorsTable() {
                   </svg>
                   <span className="sr-only">Loading...</span>
                 </div>
-              )}
+              )} */}
+              <SearchInput
+                value={keyword}
+                onChange={(e: any) => {
+                  setAllValidatorPage(0);
+                  setKeyword(e.target.value);
+                  setIsTyping?.(true);
+                  if (typingTimer) clearTimeout(typingTimer);
+                  const newTimer = setTimeout(() => {
+                    setIsTyping(false);
+                  }, 1000);
+                  setTypingTimer(newTimer);
+                }}
+                placeholder="Search..."
+                id="all-pool-search"
+                className="w-full md:w-[350px]"
+              />
             </div>
           </TabsContent>
         </div>
@@ -128,6 +124,8 @@ export default function ValidatorsTable() {
           <AllValidator
             keyword={keyword}
             isTyping={isTyping}
+            page={allValidatorPage}
+            setPage={setAllValidatorPage}
             onRowClick={(row: any) =>
               router.push(`/validators/${row.original.coinbase}`)
             }
@@ -142,7 +140,10 @@ export default function ValidatorsTable() {
           />
         </TabsContent>
         <TabsContent value="queued">
-          <BoostQueue />
+          <BoostQueue
+            isValidatorDataLoading={isValidatorDataLoading}
+            setIsValidatorDataLoading={setIsValidatorDataLoading}
+          />
         </TabsContent>
       </Tabs>
     </div>
