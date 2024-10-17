@@ -18,6 +18,8 @@ export const MarketTradePNL = ({
   position,
   positionSize,
   className,
+  pnlClassName,
+  percentageClassName,
   wrapped,
   closePrice,
   hoverState = true,
@@ -29,6 +31,8 @@ export const MarketTradePNL = ({
   position: IOpenTrade | IMarketOrder | IClosedTrade;
   positionSize: string;
   className?: string;
+  pnlClassName?: string;
+  percentageClassName?: string;
   wrapped?: boolean;
   closePrice?: string;
   hoverState?: boolean;
@@ -123,10 +127,10 @@ export const MarketTradePNL = ({
                 }
               />
             ) : (
-              <div>{formatUsd(pnl)}</div>
+              <div className={pnlClassName}>{formatUsd(pnl)}</div>
             )}
             {wrapped && <div className="text-xs"> | </div>}
-            <div className="text-xs">({percentage}%)</div>
+            <div className={cn("text-xs", percentageClassName)}>({percentage}%)</div>
           </div>
         </div>
       ) : (

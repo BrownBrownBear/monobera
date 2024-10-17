@@ -1,6 +1,7 @@
 import React from "react";
 import { formatUsd } from "@bera/berajs";
 import { DropdownFilter } from "@bera/shared-ui";
+import { Icons } from "@bera/ui/icons";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import { formatFromBaseUnit } from "~/utils/formatBigNumber";
@@ -8,10 +9,12 @@ import { PositionTitle } from "~/app/components/position-title";
 import { IMarket } from "~/types/market";
 import type { IMarketOrder, IOpenTrade } from "~/types/order-history";
 import { MarketTradePNL } from "../market-trade-pnl";
-import { PnlWithPercentage } from "../pnl-with-percentage";
 
 export const generateHistoryColumns = (
   markets: IMarket[],
+  setShareOpen: (state: boolean | IMarketOrder) => void,
+  setUpdateOpen: (state: boolean | IMarketOrder) => void,
+  setDeleteOpen: (state: boolean | IMarketOrder) => void,
 ): ColumnDef<IMarketOrder>[] => [
   {
     header: "Open time",
@@ -214,5 +217,33 @@ export const generateHistoryColumns = (
     },
     accessorKey: "pnl",
     enableSorting: true,
+  },
+  {
+    header: "Manage",
+    cell: ({ row }) => (
+      <div className="align-center flex">
+        {row.original.trade_open ? (
+          <>
+            <Icons.fileEdit
+              className="mt-1 h-4 w-4 cursor-pointer text-muted-foreground"
+              onClick={() => setUpdateOpen(row.original)}
+            />
+            <Icons.close
+              className="h-6 w-6 cursor-pointer text-destructive-foreground"
+              onClick={() => setDeleteOpen(row.original)}
+            />
+          </>
+        ) : (
+          <Icons.share
+            className="mt-1 h-4 w-6 cursor-pointer text-muted-foreground"
+            onClick={() => setShareOpen(row.original)}
+          />
+        )}
+      </div>
+    ),
+    accessorKey: "manage",
+    enableSorting: false,
+    minSize: 100,
+    size: 100,
   },
 ];

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@bera/ui/button";
+import { RocketAnimation } from "./rocket-animation";
 
 export default function Hero() {
   return (
@@ -29,6 +30,7 @@ export default function Hero() {
           <Button variant="secondary">Explore Markets</Button>
         </Link>
       </div>
+      <RocketAnimation />
     </div>
   );
 }

@@ -8,11 +8,13 @@ export function PositionTitle({
   type,
   leverage,
   className,
+  large
 }: {
   market: IMarket;
   type: "Long" | "Short";
   leverage: number;
   className?: string;
+  large?: boolean;
 }) {
   const leverageLabelColor = {
     Long: {
@@ -32,17 +34,18 @@ export function PositionTitle({
       <Image
         src={market?.imageUri ?? ""}
         alt={"selectedMarket"}
-        width={24}
-        height={24}
+        width={large ? 36 : 24}
+        height={large ? 36 : 24}
         className="rounded-full"
       />{" "}
       <div>
-        <div className="mt-1 text-nowrap text-sm font-semibold leading-tight text-foreground">
+        <div className={cn("mt-1 text-nowrap text-sm font-semibold leading-tight text-foreground", large && "text-2xl")}>
           {market?.name}
         </div>
         <div
           className={cn(
             "mt-1 flex flex-row items-center gap-1 text-sm font-medium leading-tight",
+            large && "text-xl",
             type === "Long"
               ? "text-success-foreground"
               : "text-destructive-foreground",

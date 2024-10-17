@@ -72,16 +72,17 @@ export default async function Home() {
   };
   return (
     <div className="relative">
-      <Image
+      {/* <Image
         src={`${cloudinaryUrl}/BERPS/grid-hero_ht7fz0`}
         alt="dashboard"
         priority
         className="absolute left-1/2 z-0 w-full max-w-[1280px] -translate-x-1/2 transform opacity-20 dark:opacity-100"
         width={1280}
         height={100}
-      />
-      <div className="relative z-10 mx-auto flex max-w-1280 flex-col gap-[128px] bg-lend bg-contain bg-no-repeat pb-[72px] pt-20 md:pt-[116px] lg:pt-[140px]">
+      /> */}
+      <div className="relative z-10 mx-auto flex max-w-1280 flex-col gap-[128px] bg-lend bg-contain bg-no-repeat pb-[72px] md:pt-[116px] lg:pt-[84px]">
         <Hero />
+        <div className="my-12"/>
         <GeneralInfo tradingSummary={tradingSummary} />
         <Markets showBtn markets={markets} />
         <Tutorial params={data.params} />

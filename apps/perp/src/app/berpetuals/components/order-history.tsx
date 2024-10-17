@@ -12,6 +12,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { generateMarketOrders } from "~/utils/generateMarketOrders";
 import { ClosePositionModal } from "~/app/components/close-position-modal";
+import { SharePositionModal } from "~/app/components/share-position-modal";
 import { generateHistoryColumns } from "~/app/components/table-columns/history";
 import { generateOrdersColumns } from "~/app/components/table-columns/orders";
 import { generatePnlColumns } from "~/app/components/table-columns/pnl";
@@ -41,12 +42,13 @@ export function OrderHistory({
   markets: IMarket[];
   size: "sm" | "md" | "lg";
 }) {
-  const [updateOpen, setUpdateOpen] = useState<boolean | IOpenTradeCalculated>(
-    false,
-  );
-  const [deleteOpen, setDeleteOpen] = useState<boolean | IOpenTradeCalculated>(
-    false,
-  );
+  const [shareOpen, setShareOpen] = useState<boolean | IMarketOrder>(false);
+  const [updateOpen, setUpdateOpen] = useState<
+    boolean | IOpenTradeCalculated | IMarketOrder
+  >(false);
+  const [deleteOpen, setDeleteOpen] = useState<
+    boolean | IOpenTradeCalculated | IMarketOrder
+  >(false);
 
   const { tableState, setTableState } = useContext(TableContext);
   const { isConnected } = useBeraJs();
@@ -201,7 +203,14 @@ export function OrderHistory({
           }
           return position;
         });
-        columns = markets ? generateHistoryColumns(markets) : [];
+        columns = markets
+          ? generateHistoryColumns(
+              markets,
+              setShareOpen,
+              setUpdateOpen,
+              setDeleteOpen,
+            )
+          : [];
         totalPages = marketOrdersPagination?.total_pages ?? 1;
         isLoading = isMarketOrdersLoading || !isConnected;
         isValidating = isMarketOrdersValidation;
@@ -274,6 +283,11 @@ export function OrderHistory({
         className="flex sm:hidden"
         markets={markets}
         tabType={tableState.tabType ?? "positions"}
+      />
+      <SharePositionModal
+        order={shareOpen as IMarketOrder}
+        controlledOpen={!!shareOpen}
+        onOpenChange={setShareOpen}
       />
       <UpdatePositionModal
         openPosition={updateOpen as IOpenTradeCalculated}
