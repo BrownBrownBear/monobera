@@ -1,4 +1,4 @@
-import { bgtEndpointUrl } from "@bera/config";
+import { polEndpointUrl } from "@bera/config";
 import useSWR, { mutate } from "swr";
 import { Address } from "viem";
 import {
@@ -20,7 +20,7 @@ export const useSelectedGaugeValidators = (
     QUERY_KEY,
     async () => {
       if (!id) return undefined;
-      const url = `${bgtEndpointUrl}/validators?vaultId=${id}`;
+      const url = `${polEndpointUrl}/validators?vaultId=${id}`;
       const gauge = await fetch(url);
       const temp = await gauge.json();
       return temp.validators;

@@ -1,13 +1,13 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { bgtSubgraphUrl } from "@bera/config";
+import { polSubgraphUrl } from "@bera/config";
 
 export const bgtClient = new ApolloClient({
-  uri: bgtSubgraphUrl,
+  uri: polSubgraphUrl,
   cache: new InMemoryCache(),
 });
 
 export const ssrBgtClient = new ApolloClient({
   ssrMode: true,
-  uri: bgtSubgraphUrl,
+  uri: polSubgraphUrl,
   cache: new InMemoryCache(),
 });

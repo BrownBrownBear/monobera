@@ -22,14 +22,14 @@ export const getBgtApy = async ({
   config,
   blockTime,
 }: GetBgtApyArgs): Promise<string | undefined> => {
-  if (!config.subgraphs?.bgtSubgraph) {
+  if (!config.subgraphs?.polSubgraph) {
     throw new Error("bgt subgraph uri is not found in config");
   }
   if (!config.subgraphs?.dexSubgraph) {
     throw new Error("dex subgraph uri is not found in config");
   }
   const bgtClient = new ApolloClient({
-    uri: config.subgraphs?.bgtSubgraph,
+    uri: config.subgraphs?.polSubgraph,
     cache: new InMemoryCache(),
   });
 

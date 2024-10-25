@@ -4,7 +4,7 @@ import POLLING from "~/enum/polling";
 import { DefaultHookOptions, DefaultHookReturnType } from "~/types/global";
 import { useBeraJs } from "~/contexts";
 import { Vault } from "~/types";
-import { bgtEndpointUrl, multicallAddress } from "@bera/config";
+import { polEndpointUrl, multicallAddress } from "@bera/config";
 import { Address, formatUnits } from "viem";
 import { BERA_VAULT_REWARDS_ABI } from "~/abi";
 import { usePublicClient } from "wagmi";
@@ -50,7 +50,7 @@ export const useUserVaults = (
     async () => {
       if (!account || !publicClient) return undefined;
 
-      const url = `${bgtEndpointUrl}/user/${account}/vaults`;
+      const url = `${polEndpointUrl}/user/${account}/vaults`;
       const validatorList = await fetch(url);
       const temp: any = await validatorList.json();
       const vaultList: Vault[] = temp.userVaults;

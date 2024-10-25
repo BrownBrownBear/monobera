@@ -22,6 +22,7 @@ export interface TableHeaderProps<TData, TValue> {
    * Show borders on the table header
    */
   showBorders?: boolean;
+  variant?: string;
 }
 
 export function TableHeader<TData, TValue>({
@@ -30,6 +31,7 @@ export function TableHeader<TData, TValue>({
   flexTable,
   dynamicFlex,
   showBorders = true,
+  variant,
 }: TableHeaderProps<TData, TValue>) {
   if (header.isPlaceholder) {
     return <td colSpan={header.colSpan} />;
@@ -57,7 +59,7 @@ export function TableHeader<TData, TValue>({
                     : header.column.columnDef.size,
                 minWidth: header.column.columnDef.minSize,
                 borderRight:
-                  !showBorders || header.column.getIsLastColumn()
+                  header.column.getIsLastColumn() || variant === "ghost"
                     ? undefined
                     : "1px solid hsla(0, 2%, 68%, 0.1)",
               }
@@ -69,7 +71,7 @@ export function TableHeader<TData, TValue>({
                   ? undefined
                   : header.column.columnDef.size,
                 borderRight:
-                  !showBorders || header.column.getIsLastColumn()
+                  header.column.getIsLastColumn() || variant === "ghost"
                     ? undefined
                     : "1px solid hsla(0, 2%, 68%, 0.1)",
               }
@@ -77,7 +79,12 @@ export function TableHeader<TData, TValue>({
       }
     >
       {typeof header.column.columnDef.header === "string" ? (
-        <div className="flex flex-1 flex-col font-medium">
+        <div
+          className={cn(
+            "flex flex-1 flex-col font-medium",
+            header?.column.columnDef.meta?.headerClassname,
+          )}
+        >
           <div className="flex text-sm">
             {canFilter ? (
               <DropdownMenu>
@@ -132,7 +139,10 @@ export function TableHeader<TData, TValue>({
         flexRender(header.column.columnDef.header, header.getContext())
       )}
       {header.column.columnDef.meta?.tooltip && (
-        <Tooltip text={header.column.columnDef.meta.tooltip} className="ml-1" />
+        <Tooltip
+          text={header.column.columnDef.meta.tooltip}
+          className={cn("ml-1", header.column.columnDef.meta.tooltipClassname)}
+        />
       )}
       {header.column.columnDef.enableResizing && flexTable ? (
         <div

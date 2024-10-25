@@ -1,7 +1,7 @@
 import {
   beraTokenAddress,
-  bgtEndpointUrl,
-  bgtSubgraphUrl,
+  polEndpointUrl,
+  polSubgraphUrl,
   bgtTokenAddress,
   crocDexAddress,
   crocIndexerEndpoint,
@@ -36,13 +36,13 @@ export const defaultBeraConfig: BeraConfig = {
     validatorList: validatorListUrl,
     marketList: marketListUrl,
     validatorInfo: validatorListUrl,
-    bgtEndpoint: bgtEndpointUrl,
+    polEndpoint: polEndpointUrl,
   },
   subgraphs: {
     honeySubgraph: honeySubgraphUrl,
     dexSubgraph: crocSubgraphEndpoint,
     lendSubgraph: lendSubgraphUrl,
-    bgtSubgraph: bgtSubgraphUrl,
+    polSubgraph: polSubgraphUrl,
     governanceSubgraph: governanceSubgraphUrl,
   },
   contracts: {

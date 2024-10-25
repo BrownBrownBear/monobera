@@ -1,6 +1,6 @@
-import { GetTotalBgtDistributed, bgtClient } from "@bera/graphql";
+import { GetTotalBgtDistributed } from "@bera/graphql/pol";
+import { bgtClient } from "@bera/graphql"
 import useSWR from "swr";
-import useSWRImmutable from "swr/immutable";
 
 export const useBgtRewards = () => {
   const QUERY_KEY = ["bgtRewards"];

@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { DefaultHookOptions, DefaultHookReturnType } from "~/types/global";
-import { beraTokenAddress, bgtSubgraphUrl } from "@bera/config";
+import { beraTokenAddress, polSubgraphUrl } from "@bera/config";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { GetWeeklyBgtInflation } from "@bera/graphql";
 
@@ -17,7 +17,7 @@ export const useBgtInflation = (
     QUERY_KEY,
     async () => {
       const bgtClient = new ApolloClient({
-        uri: bgtSubgraphUrl,
+        uri: polSubgraphUrl,
         cache: new InMemoryCache(),
       });
       return await bgtClient

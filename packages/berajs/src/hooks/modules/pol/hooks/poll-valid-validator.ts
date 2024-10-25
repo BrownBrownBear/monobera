@@ -1,9 +1,9 @@
-import { bgtSubgraphUrl } from "@bera/config";
+import { polSubgraphUrl } from "@bera/config";
 import useSWR, { mutate } from "swr";
 import { Address, isAddress } from "viem";
 import { DefaultHookOptions, DefaultHookReturnType } from "~/types";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { GetValidValidator } from "@bera/graphql";
+import { GetValidValidator } from "@bera/graphql/pol";
 
 export const useValidValidator = (
   id: Address,
@@ -15,7 +15,7 @@ export const useValidValidator = (
     async () => {
       if (!id) return false;
       const bgtClient = new ApolloClient({
-        uri: bgtSubgraphUrl,
+        uri: polSubgraphUrl,
         cache: new InMemoryCache(),
       });
 

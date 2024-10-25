@@ -5,3 +5,4 @@ export * from "./lend";
 export * from "./rewards";
 export * from "./bgt";
 export * from "./governance";
+export * from "./pol";

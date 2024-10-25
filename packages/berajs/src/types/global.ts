@@ -11,13 +11,13 @@ export interface BeraConfig {
     validatorList?: string;
     marketList?: string;
     validatorInfo?: string;
-    bgtEndpoint?: string;
+    polEndpoint?: string;
   };
   subgraphs?: {
     honeySubgraph?: string;
     dexSubgraph?: string;
     lendSubgraph?: string;
-    bgtSubgraph?: string;
+    polSubgraph?: string;
     governanceSubgraph?: string;
   };
   contracts?: {

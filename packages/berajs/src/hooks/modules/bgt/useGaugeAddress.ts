@@ -3,7 +3,7 @@ import { Address } from "viem";
 import { usePublicClient } from "wagmi";
 import POLLING from "~/enum/polling";
 import { DefaultHookOptions, DefaultHookReturnType } from "~/types/global";
-import { bgtSubgraphUrl } from "@bera/config";
+import { polSubgraphUrl } from "@bera/config";
 import { GetStakingToken } from "@bera/graphql";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
@@ -20,7 +20,7 @@ export const useGaugeAddress = (
     async () => {
       if (!receiptTokenAddress || !publicClient) return undefined;
       const bgtClient = new ApolloClient({
-        uri: bgtSubgraphUrl,
+        uri: polSubgraphUrl,
         cache: new InMemoryCache(),
       });
 

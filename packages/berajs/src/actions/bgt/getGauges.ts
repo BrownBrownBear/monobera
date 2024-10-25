@@ -23,11 +23,11 @@ export const getGauges = async (
   config: BeraConfig,
   filter?: GaugeFilter,
 ): Promise<GetGaugeData> => {
-  if (!config.endpoints?.bgtEndpoint) {
+  if (!config.endpoints?.polEndpoint) {
     throw new Error("Missing backend endpoint in config");
   }
   try {
-    let url = `${config.endpoints.bgtEndpoint}/vaults`;
+    let url = `${config.endpoints.polEndpoint}/vaults`;
     if (filter) {
       let isFirstParam = true;
       Object.keys(filter).forEach((key) => {

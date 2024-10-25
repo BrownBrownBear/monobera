@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { bgtEndpointUrl, bgtStakerSubgraphUrl } from "@bera/config";
-import { GetUserValidatorInformation } from "@bera/graphql";
+import { polEndpointUrl, bgtStakerSubgraphUrl } from "@bera/config";
+import { GetUserValidatorInformation } from "@bera/graphql/pol";
 import useSWR from "swr";
 
 import { useBeraJs } from "~/contexts";
@@ -35,7 +35,7 @@ export const useUserActiveValidators = (
         variables: { address: account.toLowerCase() },
       });
 
-      const url = `${bgtEndpointUrl}/user/${account}/validators`;
+      const url = `${polEndpointUrl}/user/${account}/validators`;
       const validatorList = await fetch(url);
       const temp = await validatorList.json();
       const validatorInfoList =

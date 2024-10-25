@@ -1,4 +1,4 @@
-import { bgtEndpointUrl } from "@bera/config";
+import { polEndpointUrl } from "@bera/config";
 import useSWR, { mutate } from "swr";
 import { Address } from "viem";
 import { DefaultHookOptions, DefaultHookReturnType, Validator } from "~/types";
@@ -15,7 +15,7 @@ export const useSelectedValidator = (
     QUERY_KEY,
     async () => {
       if (!id) return undefined;
-      const url = `${bgtEndpointUrl}/validators/${id}`;
+      const url = `${polEndpointUrl}/validators/${id}`;
       const validatorList = await fetch(url);
       const temp = await validatorList.json();
       return temp.validator;

@@ -10,7 +10,12 @@ import {
   useValidatorList,
 } from "@bera/berajs";
 import { bgtTokenAddress } from "@bera/config";
-import { FormattedNumber, ValidatorIcon, useTxn } from "@bera/shared-ui";
+import {
+  FormattedNumber,
+  Spinner,
+  ValidatorIcon,
+  useTxn,
+} from "@bera/shared-ui";
 import { cn } from "@bera/ui";
 import { Button } from "@bera/ui/button";
 import { Skeleton } from "@bera/ui/skeleton";
@@ -21,10 +26,14 @@ export const HISTORY_BUFFER = 8192;
 
 export const BoostQueue = ({
   selectedValidator,
+  isValidatorDataLoading,
+  setIsValidatorDataLoading,
 }: {
   selectedValidator?: string | undefined;
+  isValidatorDataLoading?: boolean;
+  setIsValidatorDataLoading: (loading: boolean) => void;
 }) => {
-  const { data = [], refresh, isLoading } = useUserValidatorsSubgraph();
+  const { data = [], refresh } = useUserValidatorsSubgraph();
   const { refresh: refreshBalance } = useBgtUnstakedBalance();
 
   const result = useBlock();
@@ -51,7 +60,7 @@ export const BoostQueue = ({
             return selectedValidator !== undefined
               ? validator.coinbase.toLowerCase() ===
                   selectedValidator.toLowerCase()
-              : false;
+              : true;
           });
   }, [data, blockNumber]);
 
@@ -67,10 +76,12 @@ export const BoostQueue = ({
     message: "Activating queued BGT to Validator",
     actionType: TransactionActionType.DELEGATE,
     onSuccess: () => {
+      setIsValidatorDataLoading(true);
       setTimeout(() => {
         refresh();
         refreshBalance();
         setHasSubmittedTxn({} as any);
+        setIsValidatorDataLoading(false);
       }, 5000);
     },
   });
@@ -83,10 +94,12 @@ export const BoostQueue = ({
     message: "Cancelling queued BGT to Validator",
     actionType: TransactionActionType.DELEGATE,
     onSuccess: () => {
+      setIsValidatorDataLoading(true);
       setTimeout(() => {
         refresh();
         refreshBalance();
         setHasSubmittedTxn({} as any);
+        setIsValidatorDataLoading(false);
       }, 5000);
     },
   });
@@ -108,7 +121,13 @@ export const BoostQueue = ({
     <div className="flex flex-col gap-3">
       {ActivateModalPortal}
       {CancelModalPortal}
-      <div className="text-lg font-semibold leading-7">Delegation Queue</div>
+      <div className="flex items-center">
+        <div className="mr-2 text-lg font-semibold leading-7">
+          Delegation Queue
+        </div>
+        {isValidatorDataLoading && <Spinner size={18} color="white" />}
+      </div>
+
       {!queuedList ? (
         <div>
           <Skeleton className="h-28 w-full rounded-md" />
@@ -175,7 +194,7 @@ const ConfirmationCard = ({
   const validatorInfo = data?.validatorDictionary
     ? data.validatorDictionary[coinbase]
     : undefined;
-  console.log(validatorInfo, data);
+
   return (
     <div className="w-full rounded-md border border-border p-4">
       <div className="flex w-full justify-between">

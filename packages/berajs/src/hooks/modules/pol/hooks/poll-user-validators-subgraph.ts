@@ -4,7 +4,7 @@ import POLLING from "~/enum/polling";
 import { DefaultHookOptions, DefaultHookReturnType } from "~/types/global";
 import { useBeraJs } from "~/contexts";
 import { SubgraphUserValidator } from "~/types";
-import { GetUserValidatorInformation } from "@bera/graphql";
+import { GetUserValidatorInformation } from "@bera/graphql/pol";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { bgtStakerSubgraphUrl } from "@bera/config";
 

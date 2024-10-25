@@ -16,7 +16,7 @@ export const blockExplorerUrl = process.env
   .NEXT_PUBLIC_BLOCK_EXPLORER as string;
 export const blockExplorerName = process.env
   .NEXT_PUBLIC_BLOCK_EXPLORER_NAME as string;
-export const bgtEndpointUrl = process.env.NEXT_PUBLIC_BGT_ENDPOINT as string;
+export const polEndpointUrl = process.env.NEXT_PUBLIC_POL_ENDPOINT as string;
 export const lendEndpointUrl = process.env.NEXT_PUBLIC_LEND_ENDPOINT as string;
 export const validatorEndpointUrl = process.env.NEXT_PUBLIC_VALIDATOR_ENDPOINT;
 export const awsUrl = process.env.NEXT_PUBLIC_AWS_URL as string;
@@ -30,8 +30,8 @@ export const honeySubgraphUrl = process.env
   .NEXT_PUBLIC_HONEY_SUBGRAPH_URL as string;
 export const lendSubgraphUrl = process.env
   .NEXT_PUBLIC_BEND_SUBGRAPH_URL as string;
-export const bgtSubgraphUrl = process.env
-  .NEXT_PUBLIC_BGT_SUBGRAPH_URL as string;
+export const polSubgraphUrl = process.env
+  .NEXT_PUBLIC_POL_SUBGRAPH_URL as string;
 export const bgtStakerSubgraphUrl = process.env
   .NEXT_PUBLIC_BGT_STAKER_SUBGRAPH_URL as string;
 export const governanceSubgraphUrl = process.env

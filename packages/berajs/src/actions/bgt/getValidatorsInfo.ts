@@ -1,5 +1,3 @@
-import { Address } from "viem";
-
 import { BeraConfig, Validator } from "../../types";
 
 export interface GetValidatorsInfo {
@@ -22,11 +20,11 @@ export const getValidatorsInfo = async (
   config: BeraConfig,
   filter?: ValidatorFilter,
 ): Promise<GetValidatorsInfo> => {
-  if (!config.endpoints?.bgtEndpoint) {
+  if (!config.endpoints?.polEndpoint) {
     throw new Error("Missing backend endpoint in config");
   }
   try {
-    let url = `${config.endpoints?.bgtEndpoint}/validators`;
+    let url = `${config.endpoints?.polEndpoint}/validators`;
     if (filter) {
       let isFirstParam = true;
       Object.keys(filter).forEach((key) => {

@@ -1,4 +1,4 @@
-import { bgtEndpointUrl } from "@bera/config";
+import { polEndpointUrl } from "@bera/config";
 import useSWR, { mutate } from "swr";
 import { Address, isAddress } from "viem";
 import { getGauge } from "~/actions";

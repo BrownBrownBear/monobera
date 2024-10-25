@@ -7,22 +7,18 @@ dotenv.config({
 
 const governanceSchemaUrl = process.env.NEXT_PUBLIC_GOVERNANCE_SUBGRAPH_URL;
 const chainSchemaUrl = process.env.NEXT_PUBLIC_CHAIN_BLOCKS_SUBGRAPH_URL;
-
-if (!governanceSchemaUrl || !chainSchemaUrl) {
+const polSchemaUrl = process.env.NEXT_PUBLIC_POL_SUBGRAPH_URL;
+if (!governanceSchemaUrl || !chainSchemaUrl || !polSchemaUrl) {
   throw new Error(
     "GraphQL schema URLs are not defined in the environment variables.",
   );
 }
 const config: CodegenConfig = {
   overwrite: true,
-  // documents: "./src/**/query.ts",
-  schema: process.env.NEXT_PUBLIC_CHAIN_BLOCKS_SUBGRAPH_URL,
   generates: {
     "./src/modules/governance/codegen.ts": {
-      documents: "./src/modules/governance/query.ts",
-      schema: process.env.NEXT_PUBLIC_GOVERNANCE_SUBGRAPH_URL,
-      // preset: "client",
-
+      schema: governanceSchemaUrl,
+      documents: "./src/modules/governance/**/*.ts",
       plugins: [
         "typescript",
         "typescript-operations",
@@ -36,24 +32,40 @@ const config: CodegenConfig = {
       config: {
         gqlImport: "@apollo/client#gql",
         withHooks: true,
-        // noExport: true,
       },
     },
-    "./src/modules/chain/codegen.ts": {
-      documents: "./src/modules/chain/query.ts",
-      schema: process.env.NEXT_PUBLIC_CHAIN_BLOCKS_SUBGRAPH_URL,
-
-      // preset: "client",
+    "./src/modules/pol/codegen.ts": {
+      schema: polSchemaUrl,
+      documents: "./src/modules/pol/**/*.ts",
       plugins: [
         "typescript",
         "typescript-operations",
         "typescript-react-apollo",
         {
-          "typescript-document-nodes": {},
+          "typescript-document-nodes": {
+            gqlImport: "@apollo/client#gql",
+          },
         },
       ],
       config: {
-        // noExport: true,
+        gqlImport: "@apollo/client#gql",
+        withHooks: true,
+      },
+    },
+    "./src/modules/chain/codegen.ts": {
+      schema: chainSchemaUrl,
+      documents: "./src/modules/chain/**/*.ts",
+      plugins: [
+        "typescript",
+        "typescript-operations",
+        "typescript-react-apollo",
+        {
+          "typescript-document-nodes": {
+            gqlImport: "@apollo/client#gql",
+          },
+        },
+      ],
+      config: {
         withHooks: true,
         gqlImport: "@apollo/client#gql",
       },
